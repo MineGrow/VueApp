@@ -1,0 +1,50 @@
+<!-- 过渡动画 -->
+
+<style>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+    }
+    .fade-enter, .fade-level-to {
+        opacity: 0
+    }
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to {
+        transform: translateX(10px);
+        opacity: 0;
+    }
+</style>
+<div id="demo">
+    <button @click="show = !show">Toggle</button>
+    <transition name="fade">
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+
+<div id="example-1">
+    <button @click="show = !show">Toggle render</button>
+    <transition name="slide-fade">
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script>
+    new Vue({
+        el:'#demo',
+        data: {
+            show:true
+        }
+    })
+
+    new Vue({
+        el: '#example-1',
+        data: {
+            show: true
+        }
+    })
+</script>
