@@ -1,0 +1,39 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<div id="app">
+    <h1>Hello App!</h1>
+    <p>
+        <!-- 使用 router-link组件来导航 -->
+        <!-- 通过传入to属性指定链接 -->
+        <!-- 默认会被渲染成一个<a>标签 -->
+        <router-link to="/foo">Go to Foo</router-link>
+        <router-link to="/bar">Go to Bar</router-link>
+    </p>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+</div>
+
+<script>
+    // 1、定义（路由）组件
+    // 可以从其他文件import进来
+    const Foo = { template: '<div>foo</div>'}
+    const Bar = { template: '<div>bar</div>'}
+
+    // 2、定义路由
+    // 每个路由映射一个组件
+    const routes = [
+        { path: '/foo', component: Foo },
+        { path: '/bar', component: Bar}
+    ]
+    // 3、创建router实例，然后传routes配置
+    const router = new VueRouter({
+        routes
+    })
+
+    // 4、创建和挂载根实例
+    const app = new Vue({
+        router
+    }).$mount('#app')
+</script>
