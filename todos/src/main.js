@@ -7,9 +7,9 @@ import router from './router' // 引入路由配置文件
 Vue.config.productionTip = false  // 关闭生产模式下给出的提示
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+new Vue({     // 创建一个 Vue 根实例
+  el: '#app', // 挂载id，这个实例下所有的内容都会在index.html的#app下显示
+  router,     // 注入路由配置
+  template: '<App/>', // 配置根模板 即打开页面显示那个组件
+  components: { App } // 注入组件
 })
