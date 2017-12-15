@@ -77,7 +77,7 @@
 </template>
 
 <script>
-  import { getTodo, addRecord } from '../api/api';
+  import { getTodo, addRecord, editTodo } from '../api/api';
   import item from "./item";
 
   export default {
@@ -138,7 +138,7 @@
         editTodo({
           todo: this.todo
         }).then(data => {
-          this.$store.dispath('getTodo');
+          _this.$store.dispatch('getTodo');
         });
       },
       updateTitle() {

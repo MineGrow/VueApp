@@ -64,9 +64,9 @@ export default {
                 return id && todo.id === id;
             });
             // todo.count 等待完成数据 等于 todo.record （待办事项列表下未被选择的数据）
-            todo.count = todo.record.filter((data) => {
+            todo ? todo.count = todo ?  todo.record.filter((data) => {
                 return data.checked === false;
-            }).length;
+            }).length : null : false;
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     resolve([200, {
@@ -103,12 +103,42 @@ export default {
 
         // 修改待办事项
         mock.onPost('/todo/editRecord').reply(config => {
-            //TODO
+            let {
+                id,
+                record,
+                index
+            } = JSON.parse(config.data);
+            Todos.some((t) => {
+                if(t.id === id) {
+                    t.record[index] = record;
+                    return true;
+                }
+            });
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     resolve([200]);
                 }, 200);
             })
+        });
+
+        // 修改标题
+        mock.onPost('/todo/editTodo').reply(config => {
+            let {
+                todo
+            } = JSON.parse(config.data);
+            Todos.some((t, index) => {
+                if (t.id === todo.id) {
+                    t.title = todo.title;
+                    t.locked = todo.locked;
+                    t.isDelete = todo.isDelete;
+                    return true;
+                }
+            });
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve([200]);
+                }, 200);
+            });
         });
 
     }
