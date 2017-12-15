@@ -35,15 +35,21 @@ export default {
     // data 函数
     return {
       items: [], // 菜单数据
-      todoId: "" // 默认选中id
+      todoId: "",// 默认选中id
+      todoNum: 0
     };
   },
   created() {
     // 调用请求菜单列表数据的接口
-    getTodoList({}).then(res => {
-      const TODOS = res.data.todos; // 数据都会返回在res.data里面
-      this.items = TODOS;
-      this.todoId = TODOS[0].id;
+    // getTodoList({}).then(res => {
+    //   const TODOS = res.data.todos; // 数据都会返回在res.data里面
+    //   this.items = TODOS;
+    //   this.todoId = TODOS[0].id;
+    // });
+    this.$store.dispatch('getTodo').then(() => {
+      this.$nextTick(() => {
+        this.goList(this.todoList[0].id);
+      });
     });
   },
   methods: {
@@ -66,13 +72,18 @@ export default {
     }
   },
   watch: {
-    todoId(id) {
+    'todoId'(id) {
       this.$router.push({ name: "todo", params: { id: id } });
       // 监听到用户的点击todoId的变化再跳转路由
     }
   },
   computed: {
     todoList() {
+      const number = this.$store.getters.getTodoList.length;
+      if (this.$store.getters.getTodoList.length < this.todoNum) {
+        this.goList(this.$store.getters.getTodoList[0].id);
+      }
+      this.todoNum = number;
       return this.$store.getters.getTodoList;  // 返回vuex getters.js 定义的getTodoList数据
     }
   },

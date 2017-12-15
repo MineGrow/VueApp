@@ -60,7 +60,7 @@
         editRecord({
           id: this.id, record: this.item, index: this.index
         }).then(data => {
-          this.init();
+          // this.init();
           this.$store.dispatch('getTodo');
         });
       }
